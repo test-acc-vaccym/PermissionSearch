@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="6dip">
+
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/application_list_item_icon"
+            android:layout_width="52dip"
+            android:layout_height="52dip"
+            android:src="@drawable/ic_launcher"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="6dip"
+            />
+
+        <LinearLayout android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            >
+                <TextView android:id="@+id/application_list_item_primary"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:textColor="@color/listitem_primary"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    />
+
+                <TextView android:id="@+id/application_list_item_secondary"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/listitem_secondary"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

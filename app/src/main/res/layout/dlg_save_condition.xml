@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:padding="5dp"
+	>
+
+	<EditText
+		android:id="@+id/dlg_save_condition_name"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:singleLine="true"
+		android:maxLength="64"
+		>
+		<requestFocus />
+	</EditText>
+
+	<Button
+		android:id="@+id/dlg_save_condition_ok"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:text="@string/button_text_ok"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		/>
+
+</LinearLayout>

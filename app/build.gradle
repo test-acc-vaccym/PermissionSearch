@@ -1,0 +1,26 @@
+apply plugin: 'android'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId "sakaitakao.android.permissionsearch"
+        minSdkVersion 7
+        targetSdkVersion 22
+
+        testApplicationId "sakaitakao.android.permissionsearch.test"
+        testInstrumentationRunner "android.test.InstrumentationTestRunner"
+    }
+
+    buildTypes {
+        release {
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    compile files('libs/commons-collections-3.2.1.jar')
+    compile files('libs/jsonic-1.2.7.jar')
+}

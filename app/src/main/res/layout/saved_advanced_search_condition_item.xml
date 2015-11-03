@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="?android:attr/listPreferredItemHeight"
+	android:padding="6dip">
+
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:orientation="vertical" >
+		
+		<TextView android:id="@+id/saved_advanced_search_condition_item_name"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_vertical"
+			android:ellipsize="marquee"
+			android:singleLine="true"
+			android:textColor="@color/listitem_primary"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			/>
+		
+		<TextView android:id="@+id/saved_advanced_search_condition_item_detail"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:textColor="@color/listitem_secondary"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			/>
+
+	</LinearLayout>
+
+</LinearLayout>

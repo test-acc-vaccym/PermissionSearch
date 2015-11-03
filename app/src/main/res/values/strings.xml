@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, PermissionSearchActivity!</string>
+    <string name="app_name">Permission Search</string>
+    <string name="app_description">インストールされているアプリを権限で検索します。</string>
+    <color name="listitem_primary">#F0F0F0</color>
+    <color name="listitem_secondary">#C0C0C0</color>
+    <string name="protection_level_normal">Normal</string>
+    <string name="protection_level_dangerous">Dangerous</string>
+    <string name="protection_level_signature">Signature</string>
+    <string name="protection_level_signature_or_system">Signature or System</string>
+    <string name="unknown_permission">不明な権限(%1$s)</string>
+    <string name="hit_applications">%1$d 個のアプリ</string>
+    <string name="protection_level">プロテクションレベル: %1$s</string>
+    <string name="protection_level_unknown">不明</string>
+    <string name="hit_count">%1$d 件見つかりました。</string>
+    <string name="market_not_found">マーケットアプリが見つかりません。</string>
+    <string name="settings_not_found">設定アプリが見つかりません。</string>
+    <string name="title_app_list">Permission Search - アプリケーション一覧</string>
+    <string name="title_permission_list">Permission Search - 権限一覧</string>
+    <string name="easy_search_description">権限でアプリを検索できます。検索の条件を選んでください。</string>
+    <string name="easy_search_include_system_apps">プリインストールアプリも検索</string>
+    <string name="title_easy_search">Permission Search</string>
+    <string name="permission_list_description">権限の一覧を表示しています。権限を持つアプリケーションを一覧表示できます。</string>
+        <string-array name="easy_search_info">
+        <item>{\&quot;name\&quot;:\&quot;ハイリスクな権限\&quot;, \&quot;description\&quot;:\&quot;権限のプロテクションレベルが、Dangerous、System level のものを探します。\&quot;, \&quot;protectionLevelList\&quot;:[1, 2, 3]}</item>
+        <item>{\&quot;name\&quot;:\&quot;すべて\&quot;, \&quot;description\&quot;:\&quot;すべての権限を探します。\&quot; }</item>
+        <item >{\&quot;name\&quot;:\&quot;固有 ID\&quot;, \&quot;description\&quot;:\&quot;デバイスまたは契約者に紐付く ID にアクセスできるアプリを探します。この ID によって断片的な情報が紐づけられると、あなたのプライバシーが侵害される恐れがあります。\&quot;, \&quot;permissionNamePatternList\&quot;:[\&quot;^.*READ_PHONE_STATE$\&quot;, \&quot;^.*(INTERNET|WRITE_EXTERNAL_STORAGE)$\&quot;]}</item>
+        <item >{\&quot;name\&quot;:\&quot;連絡帳\&quot;, \&quot;description\&quot;:\&quot;連絡帳にアクセスできるアプリを探します。\&quot;, \&quot;permissionNamePatternList\&quot;:[\&quot;^.*READ_CONTACTS$\&quot;, \&quot;^.*(INTERNET|WRITE_EXTERNAL_STORAGE)$\&quot;]}</item>
+        <item >{\&quot;name\&quot;:\&quot;ブラウザ履歴・ブックマーク\&quot;, \&quot;description\&quot;:\&quot;ブラウザの履歴とブックマークを収集できるアプリを探します。\&quot;, \&quot;permissionNamePatternList\&quot;:[\&quot;^.*READ_HISTORY_BOOKMARKS$\&quot;, \&quot;^.*(INTERNET|WRITE_EXTERNAL_STORAGE)$\&quot;]}</item>
+        <item >{\&quot;name\&quot;:\&quot;低レベルログ\&quot;, \&quot;description\&quot;:\&quot;低レベルログにアクセスできるアプリを探します。低レベルログにはプライバシーに関する情報が記録されることがあります。\&quot;, \&quot;permissionNamePatternList\&quot;:[\&quot;^.*READ_LOGS$\&quot;, \&quot;^.*(INTERNET|WRITE_EXTERNAL_STORAGE)$\&quot; ]}</item>
+        <item >{\&quot;name\&quot;:\&quot;カレンダー\&quot;, \&quot;description\&quot;:\&quot;カレンダーを読み込んで、あなたの行動や非公開の予定を収集できるアプリを探します。\&quot;, \&quot;permissionNamePatternList\&quot;:[\&quot;^.*READ_CALENDAR$\&quot;, \&quot;^.*(INTERNET|WRITE_EXTERNAL_STORAGE)$\&quot; ]}</item>
+        <item >{\&quot;name\&quot;:\&quot;位置情報\&quot;, \&quot;description\&quot;:\&quot;GPS や基地局の位置情報で、あなたの行動を追跡できるアプリを探します。\&quot;, \&quot;permissionNamePatternList\&quot;:[\&quot;^.*(ACCESS_COARSE_LOCATION|ACCESS_FINE_LOCATION|ACCESS_LOCATION_EXTRA_COMMANDS)$\&quot;, \&quot;^.*(INTERNET|WRITE_EXTERNAL_STORAGE)$\&quot; ]}</item>
+    </string-array>
+        <string name="context_menu_item_preference">設定</string>
+        <string name="context_menu_item_goto_advanced_search">詳細検索</string>
+        <string name="context_menu_item_share">共有</string>
+        <string name="advanced_search_description">選択した権限をすべて含むアプリを検索します。</string>
+        <string name="advanced_search_include_system_apps">プリインストールアプリを含める</string>
+        <string name="advanced_search_search">検索</string>
+        <string name="title_advanced_search">Permission Search - 詳細検索</string>
+        <string name="advanced_search_list_item_tag_permission_name">advancedSearchListItemTag.permissionName</string>
+        <string name="context_menu_item_select_all">すべて選択</string>
+        <string name="context_menu_item_deselect_all">すべて選択解除</string>
+        <string name="context_menu_item_save_condition">この条件を保存</string>
+        <string name="preference_app_info">アプリ情報表示</string>
+        <string name="preference_app_info_summary">アプリ情報を表示するアプリを選択します。</string>
+        <string name="preference_app_info_dialog_title">アプリ情報表示選択</string>
+        <string name="title_preference">Permission Search - 設定</string>
+        <string name="preference_saved_condition">検索条件</string>
+        <string name="preference_saved_condition_summary">詳細検索で保存した検索条件を管理します。</string>
+        <string name="settings_not_supported">設定アプリを起動できません</string>
+        <string name="title_dlg_save_condition">条件の名前を入力してください</string>
+        <string name="button_text_ok">OK</string>
+        <string name="name_is_empty">名前が入力されていません。</string>
+        <string name="advanced_search_cond_saved">「%1$s」を保存しました。初期画面に表示されます。</string>
+        <string name="title_preference_saved_advanded_search_cond">Permission Search - 設定 - 検索条件</string>
+        <string name="saved_advanced_search_condition_description">詳細検索画面で保存された検索条件の一覧です。一覧の項目をタップすると、その項目を削除できます。</string>
+        <string name="query_remove_search_condition_dialog_title">検索条件消去</string>
+        <string name="query_remove_search_condition_dialog_message">%1$s を消去します。よろしいですか ?</string>
+        <string name="query_remove_search_condition_dialog_removed">%1$s を消去しました。</string>
+        <string name="button_text_yes">はい</string>
+        <string name="button_text_no">いいえ</string>
+        <string name="share_application_list">アプリ一覧を共有</string>
+        <string name="application_list_share_title">この端末にインストールされている「%1$s」権限を要求するアプリの一覧です。</string>
+        <string name="application_list_share_permission_info">権限「%1$s」の概要:</string>
+        <string name="application_list_share_application_list">アプリ一覧 (マーケットにないアプリについてもリンクを生成しています):</string>
+        <string name="application_list_share_app_name_and_market_uri">%1$s: http://market.android.com/details?id=%2$s</string>
+        <string name="app_version">1.2.0</string>
+        <string name="app_license">Permmission Search は、Apache License 2.0 に基づいて配布されている、以下のソフトウェアを包含しています。\n・JSONIC\n  http://jsonic.sourceforge.jp\n・Apache Commons Collections\n  http://commons.apache.org/collections/</string>
+        <string name="app_copyright">Copyright (C) 2011 Sakai Takao. All rights reserved.</string>
+        <string name="app_version_prefix">version </string>
+        <string name="preference_about">このアプリについて</string>
+        <string name="title_about">Permission Search について</string>
+
+</resources>
