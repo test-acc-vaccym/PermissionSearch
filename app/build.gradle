@@ -20,7 +20,11 @@ android {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
-    compile files('libs/commons-collections-3.2.1.jar')
-    compile files('libs/jsonic-1.2.7.jar')
+    compile 'commons-collections:commons-collections:3.2.1'
+    compile 'net.arnx:jsonic:1.3.9'
 }
