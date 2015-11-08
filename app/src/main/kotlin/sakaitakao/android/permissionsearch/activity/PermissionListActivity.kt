@@ -21,7 +21,6 @@ import java.util.*
  */
 class PermissionListActivity : Activity() {
 
-    private var adaptor: PermissionListAdaptor? = null
 
     /** Called when the activity is first created.  */
     public override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,9 +46,8 @@ class PermissionListActivity : Activity() {
      */
     private val condition: SearchCondition
         get() {
-
-            val intent = intent
-            val searchCondition = intent.getParcelableExtra<SearchCondition>(INTENTEXTRA_CONDITION) ?: throw RuntimeException("Please set extra data by Intent#putExtra($INTENTEXTRA_CONDITION, Parcelable)")
+            val searchCondition = intent.getParcelableExtra<SearchCondition>(INTENTEXTRA_CONDITION) ?:
+                    throw RuntimeException("Please set extra data by Intent#putExtra($INTENTEXTRA_CONDITION, Parcelable)")
             return searchCondition
         }
 
@@ -78,7 +76,7 @@ class PermissionListActivity : Activity() {
      */
     private fun showList(list: List<PermissionInfoEx>) {
         val listView = findViewById(R.id.permission_list_list) as ListView
-        adaptor = PermissionListAdaptor(this, R.layout.permission_list_item, list)
+        val adaptor = PermissionListAdaptor(this, R.layout.permission_list_item, list)
         listView.adapter = adaptor
     }
 
@@ -133,26 +131,11 @@ class PermissionListActivity : Activity() {
 
         companion object {
 
-            /**
-
-             */
             val CREATOR: Parcelable.Creator<SearchCondition> = object : Parcelable.Creator<SearchCondition> {
-
-                /*
-			 * (non-Javadoc)
-			 * 
-			 * @see android.os.Parcelable.Creator#newArray(int)
-			 */
                 override fun newArray(i: Int): Array<SearchCondition?> {
                     return arrayOfNulls(i)
                 }
 
-                /*
-			 * (non-Javadoc)
-			 * 
-			 * @see
-			 * android.os.Parcelable.Creator#createFromParcel(android.os.Parcel)
-			 */
                 override fun createFromParcel(parcel: Parcel): SearchCondition {
                     return SearchCondition(parcel)
                 }

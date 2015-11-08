@@ -30,10 +30,15 @@ class MainPreferenceActivity : PreferenceActivity() {
 
         Log.v("onPreferenceTreeClick", "preference.key = " + preference.key)
 
-        if (SUB_PREFERENCE_SAVED_SEARCH_COND_KEY == preference.key) {
-            startActivity(Intent(this, SavedAdvancedSearchConditionPreferenceActivity::class.java))
-        } else if (SUB_PREFERENCE_ABOUT_KEY == preference.key) {
-            startActivity(Intent(this, AboutActivity::class.java))
+        when (preference.key) {
+            SUB_PREFERENCE_SAVED_SEARCH_COND_KEY ->
+                startActivity(Intent(this, SavedAdvancedSearchConditionPreferenceActivity::class.java))
+
+            SUB_PREFERENCE_ABOUT_KEY ->
+                startActivity(Intent(this, AboutActivity::class.java))
+
+            else ->
+                Log.e("onPreferenceTreeClick", "Unknown Preference key ${preference.key}")
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference)
     }

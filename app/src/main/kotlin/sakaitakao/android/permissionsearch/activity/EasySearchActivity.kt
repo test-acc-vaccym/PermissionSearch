@@ -7,8 +7,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.MenuItem.OnMenuItemClickListener
 import android.widget.CheckBox
-import android.widget.CompoundButton
-import android.widget.CompoundButton.OnCheckedChangeListener
 import android.widget.ListView
 import sakaitakao.android.permissionsearch.R
 import sakaitakao.android.permissionsearch.adaptor.EasySearchListAdaptor
@@ -25,9 +23,19 @@ import java.util.*
 class EasySearchActivity : Activity() {
 
     private var adaptor: EasySearchListAdaptor? = null
-    private val contextMenuItems = arrayOf(ContextMenuItem(CONTEXT_MENU_ITEM_ID_GOTO_ADVANCED_SEARCH, R.string.context_menu_item_goto_advanced_search,
-            R.drawable.ic_menu_adv_search, OptionsItemGoToAdvancedSearchSelected()), ContextMenuItem(CONTEXT_MENU_ITEM_ID_PREFERENCE, R.string.context_menu_item_preference, android.R.drawable.ic_menu_manage,
-            OptionsItemPreferenceSelected()))
+
+    private val contextMenuItems = arrayOf(
+            ContextMenuItem(
+                    CONTEXT_MENU_ITEM_ID_GOTO_ADVANCED_SEARCH,
+                    R.string.context_menu_item_goto_advanced_search,
+                    R.drawable.ic_menu_adv_search,
+                    OptionsItemGoToAdvancedSearchSelected()),
+            ContextMenuItem(
+                    CONTEXT_MENU_ITEM_ID_PREFERENCE,
+                    R.string.context_menu_item_preference,
+                    android.R.drawable.ic_menu_manage,
+                    OptionsItemPreferenceSelected())
+    )
 
     /*
 	 * (non-Javadoc)
@@ -43,7 +51,7 @@ class EasySearchActivity : Activity() {
         adaptor = EasySearchListAdaptor(this, R.layout.easy_search_list_item, ArrayList<EasySearchInfo>(), DEFAULT_INCLUDE_SYSTEM_APPS)
 
         // リストを表示
-        showList()
+        showList(adaptor!!)
 
         // チェックボックス
         showIncludeSystemApps()
@@ -58,7 +66,6 @@ class EasySearchActivity : Activity() {
         super.onResume()
 
         // 一覧に表示する項目を取得
-        val resources = resources
         val easySearchInfoProvider = EasySearchInfoProvider()
         val easySearchInfoList = easySearchInfoProvider.getEasySearchInfoListForEasySearchActivity(this, resources)
 
@@ -73,8 +80,8 @@ class EasySearchActivity : Activity() {
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
 	 */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        for (contextMenuItem in contextMenuItems) {
-            contextMenuItem.addToMenu(menu)
+        contextMenuItems.forEach {
+            it.addToMenu(menu)
         }
         return super.onCreateOptionsMenu(menu)
     }
@@ -82,20 +89,18 @@ class EasySearchActivity : Activity() {
     // -------------------------------------------------------------------------
     // Privates
     // -------------------------------------------------------------------------
-    private fun showList() {
+    private fun showList(esla: EasySearchListAdaptor) {
 
         val listView = findViewById(R.id.easy_search_list) as ListView
-        listView.adapter = adaptor
+        listView.adapter = esla
     }
 
     private fun showIncludeSystemApps() {
 
         val checkBox = findViewById(R.id.easy_search_include_system_apps) as CheckBox
         checkBox.isChecked = adaptor!!.includeSystemApps
-        checkBox.setOnCheckedChangeListener(object : OnCheckedChangeListener {
-            override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
-                adaptor!!.includeSystemApps = isChecked
-            }
+        checkBox.setOnCheckedChangeListener({ buttonView, isChecked ->
+            adaptor!!.includeSystemApps = isChecked
         })
     }
 

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
-import android.content.DialogInterface.OnClickListener
 import android.os.Bundle
 import android.widget.ListView
 import android.widget.Toast
@@ -56,9 +55,7 @@ class SavedAdvancedSearchConditionPreferenceActivity : Activity() {
     private fun onSavedSearchCondItemClick(position: Int, easySearchInfo: EasySearchInfo) {
 
         // 消しちゃってもいいのか聞いてみる
-        queryRemoveSearchConditionDialogInfo = QueryRemoveSearchConditionDialogInfo()
-        queryRemoveSearchConditionDialogInfo!!.position = position
-        queryRemoveSearchConditionDialogInfo!!.easySearchInfo = easySearchInfo
+        queryRemoveSearchConditionDialogInfo = QueryRemoveSearchConditionDialogInfo(position, easySearchInfo)
 
         showDialog(DIALOG_ID_QUERY_REMOVE_SEARCH_COND)
         // onCreateDialog() へ
@@ -69,19 +66,18 @@ class SavedAdvancedSearchConditionPreferenceActivity : Activity() {
         val dlgBuilder = AlertDialog.Builder(this)
         dlgBuilder.setTitle(R.string.query_remove_search_condition_dialog_title)
         dlgBuilder.setMessage(resources.getString(R.string.query_remove_search_condition_dialog_message,
-                queryRemoveSearchConditionDialogInfo!!.easySearchInfo?.name))
+                queryRemoveSearchConditionDialogInfo!!.easySearchInfo.name))
+
         // 「はい」ボタン
-        dlgBuilder.setPositiveButton(R.string.button_text_yes, object : OnClickListener {
-            override fun onClick(dialog: DialogInterface, which: Int) {
-                onQueryRemoveSearchConditionDialogPositive()
-            }
+        dlgBuilder.setPositiveButton(R.string.button_text_yes, { dialog: DialogInterface, which: Int ->
+            onQueryRemoveSearchConditionDialogPositive()
         })
+
         // 「いいえ」ボタン
-        dlgBuilder.setNegativeButton(R.string.button_text_no, object : OnClickListener {
-            override fun onClick(dialog: DialogInterface, which: Int) {
-                onQueryRemoveSearchConditionDialogNegative()
-            }
+        dlgBuilder.setNegativeButton(R.string.button_text_no, { dialog: DialogInterface, which: Int ->
+            onQueryRemoveSearchConditionDialogNegative()
         })
+
         return dlgBuilder.show()
     }
 
@@ -92,8 +88,10 @@ class SavedAdvancedSearchConditionPreferenceActivity : Activity() {
         config.removeAdvancedSearchCondition(queryRemoveSearchConditionDialogInfo!!.position)
         Toast.makeText(
                 this,
-                resources.getString(R.string.query_remove_search_condition_dialog_removed,
-                        queryRemoveSearchConditionDialogInfo!!.easySearchInfo?.name), Toast.LENGTH_LONG).show()
+                resources.getString(
+                        R.string.query_remove_search_condition_dialog_removed,
+                        queryRemoveSearchConditionDialogInfo!!.easySearchInfo.name),
+                Toast.LENGTH_LONG).show()
         removeDialog(DIALOG_ID_QUERY_REMOVE_SEARCH_COND)
         queryRemoveSearchConditionDialogInfo = null
 
@@ -128,10 +126,10 @@ class SavedAdvancedSearchConditionPreferenceActivity : Activity() {
 
      * @author takao
      */
-    private class QueryRemoveSearchConditionDialogInfo {
-        var position: Int = 0
-        var easySearchInfo: EasySearchInfo? = null
-    }
+    private class QueryRemoveSearchConditionDialogInfo(
+            public val position: Int,
+            public val easySearchInfo: EasySearchInfo
+    )
 
     companion object {
 
