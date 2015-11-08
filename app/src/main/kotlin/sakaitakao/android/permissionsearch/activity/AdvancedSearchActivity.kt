@@ -162,7 +162,7 @@ class AdvancedSearchActivity : Activity() {
      * リストの項目のチェック状態が変わったら、呼び出される。
      */
     private fun onListItemCheckedChange() {
-        changeStateSearchButton(null)
+        changeStateSearchButton(advanced_search_search)
     }
 
     /**
@@ -239,9 +239,8 @@ class AdvancedSearchActivity : Activity() {
      * @param button
      * *            検索ボタン
      */
-    private fun changeStateSearchButton(button: Button?) {
-        var btn = button ?: advanced_search_search
-        btn.isEnabled = adaptor!!.checkedPermission.size > 0
+    private fun changeStateSearchButton(button: Button) {
+        button.isEnabled = adaptor!!.checkedPermission.size > 0
     }
 
     /**
