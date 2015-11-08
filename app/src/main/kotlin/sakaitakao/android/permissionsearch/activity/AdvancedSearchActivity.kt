@@ -9,7 +9,13 @@ import android.view.MenuItem
 import android.view.MenuItem.OnMenuItemClickListener
 import android.view.View
 import android.view.View.OnClickListener
-import android.widget.*
+import android.widget.Button
+import android.widget.CompoundButton
+import android.widget.Toast
+import kotlinx.android.synthetic.advanced_search.advanced_search_include_system_apps
+import kotlinx.android.synthetic.advanced_search.advanced_search_list
+import kotlinx.android.synthetic.advanced_search.advanced_search_search
+import kotlinx.android.synthetic.dlg_save_condition.dlg_save_condition_name
 import sakaitakao.android.permissionsearch.Config
 import sakaitakao.android.permissionsearch.R
 import sakaitakao.android.permissionsearch.activity.PermissionListActivity.SearchCondition
@@ -125,20 +131,18 @@ class AdvancedSearchActivity : Activity() {
 
     private fun showList(list: List<PermissionInfoEx>) {
 
-        val listView = findViewById(R.id.advanced_search_list) as ListView
         adaptor = AdvancedSearchListAdaptor(this, R.layout.advanced_search_list_item, list.toArrayList())
         adaptor!!.setOnItemCheckedChangeListener(object : OnItemCheckedChangeListener {
             override fun onItemCheckedChange() {
                 onListItemCheckedChange()
             }
         })
-        listView.adapter = adaptor
+        advanced_search_list.adapter = adaptor
     }
 
     private fun setupIncludeSystemApps() {
 
-        val button = findViewById(R.id.advanced_search_include_system_apps) as CheckBox
-        button.setOnCheckedChangeListener({
+        advanced_search_include_system_apps.setOnCheckedChangeListener({
             compoundButton: CompoundButton, flag: Boolean ->
             onIncludeSystemAppsCheckedChange(flag)
         })
@@ -149,7 +153,7 @@ class AdvancedSearchActivity : Activity() {
      */
     private fun setupSearchButton() {
 
-        val button = findViewById(R.id.advanced_search_search) as Button
+        val button = advanced_search_search
         changeStateSearchButton(button)
         button.setOnClickListener({ onSearchClick() })
     }
@@ -183,7 +187,7 @@ class AdvancedSearchActivity : Activity() {
     private fun onSearchClick() {
 
         // /system アプリを含むボタン
-        val includeSysAppsCheckBox = findViewById(R.id.advanced_search_include_system_apps) as CheckBox
+        val includeSysAppsCheckBox = advanced_search_include_system_apps
 
         // 検索条件
         val searchCondition = SearchCondition()
@@ -236,7 +240,7 @@ class AdvancedSearchActivity : Activity() {
      * *            検索ボタン
      */
     private fun changeStateSearchButton(button: Button?) {
-        var btn = button ?: findViewById(R.id.advanced_search_search) as Button
+        var btn = button ?: advanced_search_search
         btn.isEnabled = adaptor!!.checkedPermission.size > 0
     }
 
@@ -266,7 +270,7 @@ class AdvancedSearchActivity : Activity() {
      */
     private fun onSaveCondition(dialog: Dialog) {
 
-        val editName = dialog.findViewById(R.id.dlg_save_condition_name) as EditText
+        val editName = dlg_save_condition_name
         val name = editName.text.toString()
         if (name.length == 0) {
             Toast.makeText(this, R.string.name_is_empty, Toast.LENGTH_LONG).show()
