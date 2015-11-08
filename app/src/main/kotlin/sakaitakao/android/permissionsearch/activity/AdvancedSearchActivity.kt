@@ -11,11 +11,11 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.CompoundButton
+import android.widget.EditText
 import android.widget.Toast
 import kotlinx.android.synthetic.advanced_search.advanced_search_include_system_apps
 import kotlinx.android.synthetic.advanced_search.advanced_search_list
 import kotlinx.android.synthetic.advanced_search.advanced_search_search
-import kotlinx.android.synthetic.dlg_save_condition.dlg_save_condition_name
 import sakaitakao.android.permissionsearch.Config
 import sakaitakao.android.permissionsearch.R
 import sakaitakao.android.permissionsearch.activity.PermissionListActivity.SearchCondition
@@ -76,9 +76,7 @@ class AdvancedSearchActivity : Activity() {
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
 	 */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        for (contextMenuItem in contextMenuItems) {
-            contextMenuItem.addToMenu(menu)
-        }
+        contextMenuItems.forEach { it.addToMenu(menu) }
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -190,10 +188,14 @@ class AdvancedSearchActivity : Activity() {
         val includeSysAppsCheckBox = advanced_search_include_system_apps
 
         // 検索条件
-        val searchCondition = SearchCondition()
-        searchCondition.includeSystemApps = includeSysAppsCheckBox.isChecked
-        searchCondition.permissionNamePatternList = ArrayList(adaptor!!.checkedPermission)
-        searchCondition.protectionLevelList = null
+        val searchCondition = SearchCondition(
+                includeSysAppsCheckBox.isChecked,
+                adaptor!!.checkedPermission.toList(),
+                null
+        )
+        //        searchCondition.includeSystemApps = includeSysAppsCheckBox.isChecked
+        //        searchCondition.permissionNamePatternList = ArrayList(adaptor!!.checkedPermission)
+        //        searchCondition.protectionLevelList = null
 
         // パーミッション一覧へgo
         val intent = Intent(this, PermissionListActivity::class.java)
@@ -269,7 +271,7 @@ class AdvancedSearchActivity : Activity() {
      */
     private fun onSaveCondition(dialog: Dialog) {
 
-        val editName = dlg_save_condition_name
+        val editName = dialog.findViewById(R.id.dlg_save_condition_name) as EditText
         val name = editName.text.toString()
         if (name.length == 0) {
             Toast.makeText(this, R.string.name_is_empty, Toast.LENGTH_LONG).show()

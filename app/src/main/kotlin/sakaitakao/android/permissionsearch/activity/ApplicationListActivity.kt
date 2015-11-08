@@ -9,8 +9,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MenuItem.OnMenuItemClickListener
-import android.widget.ListView
-import android.widget.TextView
+import kotlinx.android.synthetic.application_list.*
 import sakaitakao.android.permissionsearch.R
 import sakaitakao.android.permissionsearch.adaptor.ApplicationListAdaptor
 import sakaitakao.android.permissionsearch.entity.ContextMenuItem
@@ -19,6 +18,7 @@ import sakaitakao.android.permissionsearch.util.ClosableLoan
 import sakaitakao.android.permissionsearch.util.PermissionInfoUtil
 import java.io.ByteArrayOutputStream
 import java.io.PrintWriter
+
 
 /**
  * アプリケーションリストのアクティビティ
@@ -83,34 +83,32 @@ class ApplicationListActivity : Activity() {
 
     private fun showPermissionLabel(packageManager: PackageManager, resources: Resources, permissionInfoEx: PermissionInfoEx) {
 
-        val textView = findViewById(R.id.application_list_permission_label) as TextView
+        val view = application_list_permission_label
         val name = PermissionInfoUtil.getPermissionLabel(packageManager, resources, permissionInfoEx)
-        textView.text = name
-        textView.requestFocus()
+        view.text = name
+        view.requestFocus()
     }
 
     private fun showProtectionLevel(resources: Resources, permissionInfoEx: PermissionInfoEx) {
 
-        val permissionLabelView = findViewById(R.id.application_list_protection_level) as TextView
-        permissionLabelView.text = PermissionInfoUtil.formatProtectionLevel(resources, permissionInfoEx)
+        application_list_protection_level.text = PermissionInfoUtil.formatProtectionLevel(resources, permissionInfoEx)
     }
 
     private fun showPermissionName(permissionInfoEx: PermissionInfoEx) {
-        val permissionLabelView = findViewById(R.id.application_list_permission_name) as TextView
-        permissionLabelView.text = permissionInfoEx.permissionInfo?.name
+
+        application_list_permission_name.text = permissionInfoEx.permissionInfo?.name
     }
 
     private fun showPermissionDescription(packageManager: PackageManager, permissionInfoEx: PermissionInfoEx) {
-        val permissionLabelView = findViewById(R.id.application_list_permission_description) as TextView
-        permissionLabelView.text = permissionInfoEx.permissionInfo?.loadDescription(packageManager)
+
+        application_list_permission_description.text = permissionInfoEx.permissionInfo?.loadDescription(packageManager)
     }
 
     private fun showList(permissionInfoEx: PermissionInfoEx) {
-        val appListView = findViewById(R.id.application_list_list) as ListView
         val applicationListAdaptor = ApplicationListAdaptor(this,
                 R.layout.application_list_item,
                 permissionInfoEx.applicationInfoList!!)
-        appListView.adapter = applicationListAdaptor
+        application_list_list.adapter = applicationListAdaptor
     }
 
     private fun onOptionsItemShareSelected(): Boolean {

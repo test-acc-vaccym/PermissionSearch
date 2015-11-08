@@ -1,5 +1,6 @@
 package sakaitakao.android.permissionsearch.activity
 
+
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
@@ -12,6 +13,7 @@ import sakaitakao.android.permissionsearch.R
 import sakaitakao.android.permissionsearch.adaptor.SavedAdvancedSearchConditionAdaptor
 import sakaitakao.android.permissionsearch.adaptor.SavedAdvancedSearchConditionAdaptor.OnItemClickListener
 import sakaitakao.android.permissionsearch.entity.EasySearchInfo
+
 
 /**
  * 設定画面(詳細検索条件)のアクティビティ

@@ -6,14 +6,15 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MenuItem.OnMenuItemClickListener
-import android.widget.CheckBox
-import android.widget.ListView
+import kotlinx.android.synthetic.easy_search.easy_search_include_system_apps
+import kotlinx.android.synthetic.easy_search.easy_search_list
 import sakaitakao.android.permissionsearch.R
 import sakaitakao.android.permissionsearch.adaptor.EasySearchListAdaptor
 import sakaitakao.android.permissionsearch.entity.ContextMenuItem
 import sakaitakao.android.permissionsearch.entity.EasySearchInfo
 import sakaitakao.android.permissionsearch.model.EasySearchInfoProvider
 import java.util.*
+
 
 /**
  * かんたん検索画面のアクティビティ
@@ -80,9 +81,7 @@ class EasySearchActivity : Activity() {
 	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
 	 */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        contextMenuItems.forEach {
-            it.addToMenu(menu)
-        }
+        contextMenuItems.forEach { it.addToMenu(menu) }
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -91,13 +90,12 @@ class EasySearchActivity : Activity() {
     // -------------------------------------------------------------------------
     private fun showList(esla: EasySearchListAdaptor) {
 
-        val listView = findViewById(R.id.easy_search_list) as ListView
-        listView.adapter = esla
+        easy_search_list.adapter = esla
     }
 
     private fun showIncludeSystemApps() {
 
-        val checkBox = findViewById(R.id.easy_search_include_system_apps) as CheckBox
+        val checkBox = easy_search_include_system_apps
         checkBox.isChecked = adaptor!!.includeSystemApps
         checkBox.setOnCheckedChangeListener({ buttonView, isChecked ->
             adaptor!!.includeSystemApps = isChecked

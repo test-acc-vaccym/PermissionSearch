@@ -1,18 +1,20 @@
 package sakaitakao.android.permissionsearch.activity
 
+
 import android.app.Activity
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
-import android.widget.ListView
-import android.widget.TextView
+import kotlinx.android.synthetic.permission_list.permission_list_hit_count
+import kotlinx.android.synthetic.permission_list.permission_list_list
 import sakaitakao.android.permissionsearch.R
 import sakaitakao.android.permissionsearch.adaptor.PermissionListAdaptor
 import sakaitakao.android.permissionsearch.entity.PermissionInfoEx
 import sakaitakao.android.permissionsearch.model.AppPermissionsFinder
 import java.util.*
+
 
 /**
  * 権限一覧のアクティビティ
@@ -67,17 +69,16 @@ class PermissionListActivity : Activity() {
      */
     private fun showHitCount(resources: Resources, list: List<PermissionInfoEx>) {
 
-        val textView = findViewById(R.id.permission_list_hit_count) as TextView
-        textView.text = resources.getString(R.string.hit_count, list.size)
+        permission_list_hit_count.text = resources.getString(R.string.hit_count, list.size)
     }
 
     /**
      * @param list
      */
     private fun showList(list: List<PermissionInfoEx>) {
-        val listView = findViewById(R.id.permission_list_list) as ListView
+
         val adaptor = PermissionListAdaptor(this, R.layout.permission_list_item, list)
-        listView.adapter = adaptor
+        permission_list_list.adapter = adaptor
     }
 
     // -------------------------------------------------------------------------
@@ -89,11 +90,20 @@ class PermissionListActivity : Activity() {
      */
     class SearchCondition : Parcelable {
 
-        var includeSystemApps: Boolean = false
-        var permissionNamePatternList: List<String>? = null
-        var protectionLevelList: List<Int>? = null
+        val includeSystemApps: Boolean
+        val permissionNamePatternList: List<String>
+        val protectionLevelList: List<Int>?
 
         constructor() {
+            includeSystemApps = false
+            permissionNamePatternList = ArrayList<String>()
+            protectionLevelList = ArrayList<Int>()
+        }
+
+        constructor(includeSystemApps: Boolean, permissionNamePatternList: List<String>, protectionLevelList: List<Int>?) {
+            this.includeSystemApps = includeSystemApps
+            this.permissionNamePatternList = permissionNamePatternList
+            this.protectionLevelList = protectionLevelList
         }
 
         /**

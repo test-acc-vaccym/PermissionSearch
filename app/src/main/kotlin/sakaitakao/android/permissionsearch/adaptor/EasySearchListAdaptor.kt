@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
@@ -58,19 +57,20 @@ class EasySearchListAdaptor
         showDescription(view, easySearchInfo)
 
         // onclick イベント
-        view.setOnClickListener(object : OnClickListener {
-            override fun onClick(view: View) {
+        view.setOnClickListener({
+            // Permission 一覧へ遷移
+            val searchCondition = SearchCondition(
+                    includeSystemApps,
+                    easySearchInfo.permissionNamePatternList,
+                    easySearchInfo.protectionLevelList
+            )
+            //                searchCondition.includeSystemApps = includeSystemApps
+            //                searchCondition.permissionNamePatternList = easySearchInfo.permissionNamePatternList
+            //                searchCondition.protectionLevelList = easySearchInfo.protectionLevelList
 
-                // Permission 一覧へ遷移
-                val searchCondition = SearchCondition()
-                searchCondition.includeSystemApps = includeSystemApps
-                searchCondition.permissionNamePatternList = easySearchInfo.permissionNamePatternList
-                searchCondition.protectionLevelList = easySearchInfo.protectionLevelList
-
-                val intent = Intent(ctx, PermissionListActivity::class.java)
-                PermissionListActivity.setSearchCondition(intent, searchCondition)
-                ctx.startActivity(intent)
-            }
+            val intent = Intent(ctx, PermissionListActivity::class.java)
+            PermissionListActivity.setSearchCondition(intent, searchCondition)
+            ctx.startActivity(intent)
         })
 
         return view
