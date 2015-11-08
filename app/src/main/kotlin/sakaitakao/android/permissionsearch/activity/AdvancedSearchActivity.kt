@@ -2,8 +2,6 @@ package sakaitakao.android.permissionsearch.activity
 
 import android.app.Activity
 import android.app.Dialog
-import android.content.DialogInterface
-import android.content.DialogInterface.OnCancelListener
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -33,10 +31,22 @@ class AdvancedSearchActivity : Activity() {
 
     private var adaptor: AdvancedSearchListAdaptor? = null
 
-    private val contextMenuItems = arrayOf(ContextMenuItem(CONTEXT_MENU_ITEM_ID_SELECT_ALL, R.string.context_menu_item_select_all, R.drawable.ic_menu_select_all,
-            OnMenuItemClickSelectAllListener()), ContextMenuItem(CONTEXT_MENU_ITEM_ID_DESELECT_ALL, R.string.context_menu_item_deselect_all, R.drawable.ic_menu_unselect_all,
-            OnMenuItemClickDeselectAllListener()), ContextMenuItem(CONTEXT_MENU_ITEM_ID_SAVE_CONDITION, R.string.context_menu_item_save_condition, android.R.drawable.ic_menu_save,
-            OnMenuItemClickSaveConditionListener()))
+    private val contextMenuItems = arrayOf(
+            ContextMenuItem(
+                    CONTEXT_MENU_ITEM_ID_SELECT_ALL,
+                    R.string.context_menu_item_select_all,
+                    R.drawable.ic_menu_select_all,
+                    OnMenuItemClickSelectAllListener()),
+            ContextMenuItem(
+                    CONTEXT_MENU_ITEM_ID_DESELECT_ALL,
+                    R.string.context_menu_item_deselect_all,
+                    R.drawable.ic_menu_unselect_all,
+                    OnMenuItemClickDeselectAllListener()),
+            ContextMenuItem(CONTEXT_MENU_ITEM_ID_SAVE_CONDITION,
+                    R.string.context_menu_item_save_condition,
+                    android.R.drawable.ic_menu_save,
+                    OnMenuItemClickSaveConditionListener())
+    )
 
     /*
 	 * (非 Javadoc)
@@ -245,11 +255,7 @@ class AdvancedSearchActivity : Activity() {
             }
         })
         // キャンセルされた時の処理
-        dialog.setOnCancelListener(object : OnCancelListener {
-            override fun onCancel(dialog: DialogInterface) {
-                onSaveConditionDialogCanceled()
-            }
-        })
+        dialog.setOnCancelListener({ onSaveConditionDialogCanceled() })
         return dialog
     }
 
