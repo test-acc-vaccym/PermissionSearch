@@ -11,19 +11,16 @@ import android.view.MenuItem.OnMenuItemClickListener
  */
 class ContextMenuItem {
 
-    var groupId: Int = 0
-    var itemId: Int = 0
-    var order: Int = 0
-    var titleRes: Int = 0
-    var iconRes: Int = 0
-    var listener: OnMenuItemClickListener? = null
+    val groupId: Int
+    val itemId: Int
+    val order: Int
+    val titleRes: Int
+    val iconRes: Int
+    val listener: OnMenuItemClickListener
 
     /**
      * コンストラクタ
      */
-    constructor() {
-    }
-
     constructor(itemId: Int, titleRes: Int, iconRes: Int, listener: OnMenuItemClickListener) {
         this.groupId = Menu.NONE
         this.itemId = itemId
