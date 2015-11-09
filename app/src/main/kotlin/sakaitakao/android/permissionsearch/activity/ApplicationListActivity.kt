@@ -170,7 +170,7 @@ class ApplicationListActivity : Activity() {
 
             Log.v("", bos.toString())
             bos.toString()
-        }) as String
+        })
     }
 
     // -------------------------------------------------------------------------

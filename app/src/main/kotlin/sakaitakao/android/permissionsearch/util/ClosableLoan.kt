@@ -14,7 +14,7 @@ object ClosableLoan {
      * @param f java.io.Closable を引数に取り何かを返す関数リテラルなのです。
      * @return [f] が返した値なのです。
      */
-    fun <A : Closeable> using(s: A, f: (A) -> Any): Any {
+    fun <A : Closeable, R> using(s: A, f: (A) -> R): R {
         try {
             return f(s)
         } finally {
