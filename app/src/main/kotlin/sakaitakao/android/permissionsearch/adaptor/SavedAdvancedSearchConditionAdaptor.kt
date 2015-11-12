@@ -3,7 +3,6 @@ package sakaitakao.android.permissionsearch.adaptor
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
@@ -23,7 +22,11 @@ class SavedAdvancedSearchConditionAdaptor
  * *
  * @param items
  */
-(ctx: Context, textViewResourceId: Int, private val items: MutableList<EasySearchInfo>) : ArrayAdapter<EasySearchInfo>(ctx, textViewResourceId, items) {
+(ctx: Context,
+ textViewResourceId: Int,
+ private val items: MutableList<EasySearchInfo>)
+: ArrayAdapter<EasySearchInfo>(ctx, textViewResourceId, items) {
+
     private val layoutInflater: LayoutInflater
     private var onItemClickListener: OnItemClickListener? = null
 
@@ -67,13 +70,8 @@ class SavedAdvancedSearchConditionAdaptor
         showDetail(view, easySearchInfo)
 
         // onclick イベント
-        view.setOnClickListener(object : OnClickListener {
-
-            override fun onClick(view: View) {
-                if (onItemClickListener != null) {
-                    onItemClickListener!!.onClick(index, easySearchInfo)
-                }
-            }
+        view.setOnClickListener({
+            onItemClickListener?.onClick(index, easySearchInfo)
         })
 
         return view
@@ -92,7 +90,7 @@ class SavedAdvancedSearchConditionAdaptor
 
         val textView = view.findViewById(R.id.saved_advanced_search_condition_item_detail) as TextView
         val sb = StringBuilder()
-        for (name in easySearchInfo.permissionNamePatternList) {
+        easySearchInfo.permissionNamePatternList.forEach { name ->
             if (sb.length() > 0) {
                 sb.append(", ")
             }

@@ -57,7 +57,7 @@ class PermissionListActivity : Activity() {
 
         val ret = AppPermissionsFinder.SearchCondition()
         ret.includeSystemApps = cond.includeSystemApps
-        ret.permissionNamePatternList = cond.permissionNamePatternList!!.toArrayList()
+        ret.permissionNamePatternList = cond.permissionNamePatternList.toArrayList()
         ret.protectionLevelSet = HashSet(cond.protectionLevelList)
         return ret
     }

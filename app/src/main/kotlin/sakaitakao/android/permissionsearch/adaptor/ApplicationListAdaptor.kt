@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
@@ -32,7 +31,10 @@ class ApplicationListAdaptor
  * *
  * @param items
  */
-(private val ctx: Context, textViewResourceId: Int, private val items: List<ApplicationInfo>) : ArrayAdapter<ApplicationInfo>(ctx, textViewResourceId, items) {
+(private val ctx: Context,
+ textViewResourceId: Int,
+ private val items: List<ApplicationInfo>)
+: ArrayAdapter<ApplicationInfo>(ctx, textViewResourceId, items) {
     private val layoutInflater: LayoutInflater
     private val packageManager: PackageManager
 
@@ -60,10 +62,8 @@ class ApplicationListAdaptor
         showApplicationIcon(view, applicationInfo)
 
         // onclick イベント
-        view.setOnClickListener(object : OnClickListener {
-            override fun onClick(view: View) {
-                onItemClicked(applicationInfo)
-            }
+        view.setOnClickListener({
+            onItemClicked(applicationInfo)
         })
 
         return view

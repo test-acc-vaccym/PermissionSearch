@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
@@ -28,7 +27,11 @@ class PermissionListAdaptor
  * *
  * @param items
  */
-(private val ctx: Context, textViewResourceId: Int, private val items: List<PermissionInfoEx>) : ArrayAdapter<PermissionInfoEx>(ctx, textViewResourceId, items) {
+(private val ctx: Context,
+ textViewResourceId: Int,
+ private val items: List<PermissionInfoEx>)
+: ArrayAdapter<PermissionInfoEx>(ctx, textViewResourceId, items) {
+
     private val resources: Resources
     private val layoutInflater: LayoutInflater
     private val packageManager: PackageManager
@@ -58,15 +61,12 @@ class PermissionListAdaptor
         showApplicationCount(view, permissionInfoEx)
 
         // onclick イベント
-        view.setOnClickListener(object : OnClickListener {
-            override fun onClick(view: View) {
-
-                // アプリ一覧へ遷移
-                val intent = Intent()
-                intent.setClass(ctx, ApplicationListActivity::class.java)
-                intent.putExtra(ApplicationListActivity.INTENTEXTRA_PERMISSION_APP_LIST, permissionInfoEx)
-                ctx.startActivity(intent)
-            }
+        view.setOnClickListener({
+            // アプリ一覧へ遷移
+            val intent = Intent()
+            intent.setClass(ctx, ApplicationListActivity::class.java)
+            intent.putExtra(ApplicationListActivity.INTENTEXTRA_PERMISSION_APP_LIST, permissionInfoEx)
+            ctx.startActivity(intent)
         })
 
         return view

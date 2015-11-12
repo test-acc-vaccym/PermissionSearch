@@ -25,7 +25,12 @@ class EasySearchListAdaptor
  * *
  * @param items
  */
-(private val ctx: Context, textViewResourceId: Int, private val items: MutableList<EasySearchInfo>, var includeSystemApps: Boolean) : ArrayAdapter<EasySearchInfo>(ctx, textViewResourceId, items) {
+(private val ctx: Context,
+ textViewResourceId: Int,
+ private val items: MutableList<EasySearchInfo>,
+ var includeSystemApps: Boolean)
+: ArrayAdapter<EasySearchInfo>(ctx, textViewResourceId, items) {
+
     private val layoutInflater: LayoutInflater
 
     init {
@@ -64,9 +69,6 @@ class EasySearchListAdaptor
                     easySearchInfo.permissionNamePatternList,
                     easySearchInfo.protectionLevelList
             )
-            //                searchCondition.includeSystemApps = includeSystemApps
-            //                searchCondition.permissionNamePatternList = easySearchInfo.permissionNamePatternList
-            //                searchCondition.protectionLevelList = easySearchInfo.protectionLevelList
 
             val intent = Intent(ctx, PermissionListActivity::class.java)
             PermissionListActivity.setSearchCondition(intent, searchCondition)
