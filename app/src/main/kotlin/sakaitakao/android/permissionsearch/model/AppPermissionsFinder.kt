@@ -80,14 +80,14 @@ class AppPermissionsFinder {
             permissionList = getMatchedProtectionLevel(packageManager, permissionList, condition)
 
             // パーミッションごとにアプリを仕分け
-            for (permissionName in permissionList) {
+            permissionList.forEach { permissionName ->
                 var appList: MutableList<ApplicationInfo>? = permissionToAppListMap[permissionName]
                 if (appList == null) {
                     appList = ArrayList<ApplicationInfo>()
                     permissionToAppListMap.put(permissionName, appList)
                 }
                 appList.add(packageInfo.applicationInfo)
-                Log.v("getPermissionNameToApplicationInfoListMap", "App = " + packageInfo.applicationInfo.packageName + " : Permission = " + permissionName)
+                Log.v("getPermissionNameToApplicationInfoListMap", "App = ${packageInfo.applicationInfo.packageName} : Permission = $permissionName")
             }
         }
 
