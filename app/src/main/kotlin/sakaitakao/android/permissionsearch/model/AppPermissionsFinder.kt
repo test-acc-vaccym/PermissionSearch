@@ -29,15 +29,10 @@ class AppPermissionsFinder {
 
         val permissionToAppListMap = getPermissionNameToApplicationInfoListMap(packageManager, condition)
 
-        val retList = ArrayList<PermissionInfoEx>()
-        permissionToAppListMap.forEach { entry ->
-            val permissionInfoWithApplicationList =
-                    createPermissionInfoEx(packageManager, entry.key, entry.value)
-            retList.add(permissionInfoWithApplicationList)
+        val retList = permissionToAppListMap.map { entry ->
+            createPermissionInfoEx(packageManager, entry.key, entry.value)
+        }.sortedWith(PermissionInfoEx.ProtectionLevelComparator())
 
-        }
-
-        Collections.sort(retList, PermissionInfoEx.ProtectionLevelComparator())
         return retList
     }
 
@@ -63,42 +58,39 @@ class AppPermissionsFinder {
 
         val excludeSystemApps = !condition.includeSystemApps
         val permissionToAppListMap = HashMap<String, MutableList<ApplicationInfo>>()
-        for (packageInfo in packageInfoList) {
 
+        packageInfoList.filterNot { packageInfo ->
             // /system 以下のアプリを除外
-            if (excludeSystemApps && ((packageInfo.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0)) {
-                continue
-            }
-
+            excludeSystemApps && ((packageInfo.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0)
+        }.filter { packageInfo ->
+            packageInfo.requestedPermissions != null
+        }.filter { packageInfo ->
             val requestedPermissions = packageInfo.requestedPermissions
-            if (requestedPermissions != null) {
+            var permissionList = Arrays.asList(*requestedPermissions)
+            // 条件に指定されたpermissionをすべて持っているか確認する。
+            isTargetAppByPermissionName(permissionList, condition)
+        }.forEach { packageInfo ->
+            val requestedPermissions = packageInfo.requestedPermissions
+            var permissionList = Arrays.asList(*requestedPermissions)
 
-                // パーミッションをフィルタする
-                var permissionList = Arrays.asList(*requestedPermissions)
+            // 条件に指定されたパーミッションを抽出
+            permissionList = getMatchedPermissionName(permissionList, condition)
 
-                // 条件に指定されたpermissionをすべて持っているか確認する。
-                if (!isTargetAppByPermissionName(permissionList, condition)) {
-                    continue
+            // 条件に指定されたプロテクションレベルのパーミッションを抽出
+            permissionList = getMatchedProtectionLevel(packageManager, permissionList, condition)
+
+            // パーミッションごとにアプリを仕分け
+            for (permissionName in permissionList) {
+                var appList: MutableList<ApplicationInfo>? = permissionToAppListMap[permissionName]
+                if (appList == null) {
+                    appList = ArrayList<ApplicationInfo>()
+                    permissionToAppListMap.put(permissionName, appList)
                 }
-
-                // 条件に指定されたパーミッションを抽出
-                permissionList = getMatchedPermissionName(permissionList, condition)
-
-                // 条件に指定されたプロテクションレベルのパーミッションを抽出
-                permissionList = getMatchedProtectionLevel(packageManager, permissionList, condition)
-
-                // パーミッションごとにアプリを仕分け
-                for (permissionName in permissionList) {
-                    var appList: MutableList<ApplicationInfo>? = permissionToAppListMap[permissionName]
-                    if (appList == null) {
-                        appList = ArrayList<ApplicationInfo>()
-                        permissionToAppListMap.put(permissionName, appList)
-                    }
-                    appList.add(packageInfo.applicationInfo)
-                    Log.v("getPermissionNameToApplicationInfoListMap", "App = " + packageInfo.applicationInfo.packageName + " : Permission = " + permissionName)
-                }
+                appList.add(packageInfo.applicationInfo)
+                Log.v("getPermissionNameToApplicationInfoListMap", "App = " + packageInfo.applicationInfo.packageName + " : Permission = " + permissionName)
             }
         }
+
         return permissionToAppListMap
     }
 
