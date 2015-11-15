@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "sakaitakao.android.permissionsearch"
-        minSdkVersion 7
+        minSdkVersion 14
         targetSdkVersion 23
 
         testApplicationId "sakaitakao.android.permissionsearch.test"
