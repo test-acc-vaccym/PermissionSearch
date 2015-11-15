@@ -198,15 +198,16 @@ class AdvancedSearchListAdaptor
         checkedPermissionSet = newSet
     }
 
-    // -------------------------------------------------------------------------
-    // Interfaces
-    // -------------------------------------------------------------------------
-    interface OnItemCheckedChangeListener {
-        fun onItemCheckedChange()
-    }
 
     companion object {
 
         private val ITEM_TAG_PERMISSION_NAME = R.string.advanced_search_list_item_tag_permission_name
+
+        // -------------------------------------------------------------------------
+        // Interfaces
+        // -------------------------------------------------------------------------
+        interface OnItemCheckedChangeListener {
+            fun onItemCheckedChange(): Unit
+        }
     }
 }

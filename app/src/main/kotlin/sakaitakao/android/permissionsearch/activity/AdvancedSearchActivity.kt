@@ -20,7 +20,6 @@ import sakaitakao.android.permissionsearch.Config
 import sakaitakao.android.permissionsearch.R
 import sakaitakao.android.permissionsearch.activity.PermissionListActivity.SearchCondition
 import sakaitakao.android.permissionsearch.adaptor.AdvancedSearchListAdaptor
-import sakaitakao.android.permissionsearch.adaptor.AdvancedSearchListAdaptor.OnItemCheckedChangeListener
 import sakaitakao.android.permissionsearch.dialog.SaveAdvancedSearchConditionDialog
 import sakaitakao.android.permissionsearch.entity.ContextMenuItem
 import sakaitakao.android.permissionsearch.entity.EasySearchInfo
@@ -130,7 +129,7 @@ class AdvancedSearchActivity : Activity() {
     private fun showList(list: List<PermissionInfoEx>) {
 
         adaptor = AdvancedSearchListAdaptor(this, R.layout.advanced_search_list_item, list.toArrayList())
-        adaptor!!.setOnItemCheckedChangeListener(object : OnItemCheckedChangeListener {
+        adaptor!!.setOnItemCheckedChangeListener(object : AdvancedSearchListAdaptor.Companion.OnItemCheckedChangeListener {
             override fun onItemCheckedChange() {
                 onListItemCheckedChange()
             }
@@ -193,9 +192,6 @@ class AdvancedSearchActivity : Activity() {
                 adaptor!!.checkedPermission.toList(),
                 null
         )
-        //        searchCondition.includeSystemApps = includeSysAppsCheckBox.isChecked
-        //        searchCondition.permissionNamePatternList = ArrayList(adaptor!!.checkedPermission)
-        //        searchCondition.protectionLevelList = null
 
         // パーミッション一覧へgo
         val intent = Intent(this, PermissionListActivity::class.java)

@@ -35,6 +35,7 @@ class ApplicationListAdaptor
  textViewResourceId: Int,
  private val items: List<ApplicationInfo>)
 : ArrayAdapter<ApplicationInfo>(ctx, textViewResourceId, items) {
+
     private val layoutInflater: LayoutInflater
     private val packageManager: PackageManager
 
@@ -116,7 +117,6 @@ class ApplicationListAdaptor
         val config = Config(ctx)
         when (config.applicationInfo) {
             Config.ApplicationInfo.MARKET -> goToMarket(applicationInfo.packageName)
-
             Config.ApplicationInfo.SETTINGS -> goToSettings(applicationInfo.packageName)
         }
     }
@@ -129,34 +129,39 @@ class ApplicationListAdaptor
         // 参考
         try {
             // 設定へ遷移
-            var intent: Intent? = null
-            when (Build.VERSION.SDK_INT) {
-                1, 2, 3, 4, 5, 6 // ～2.0 は無視する
-                -> Toast.makeText(ctx, R.string.settings_not_supported, Toast.LENGTH_LONG).show()
+            var intent: Intent? = when (Build.VERSION.SDK_INT) {
+                1, 2, 3, 4, 5, 6 -> {
+                    // ～2.0 は無視する
+                    Toast.makeText(ctx, R.string.settings_not_supported, Toast.LENGTH_LONG).show()
+                    null
+                }
 
                 7 -> {
                     // 2.1
                     // http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android-apps/2.1_r2/com/android/settings/InstalledAppDetails.java/
-                    intent = Intent()
+                    val intent = Intent()
                     intent.putExtra("com.android.settings.ApplicationPkgName", packageName)
                     intent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails")
+                    intent
                 }
 
                 8 -> {
                     // 2.2
                     // http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android-apps/2.2.1_r1/com/android/settings/InstalledAppDetails.java/
-                    intent = Intent()
+                    val intent = Intent()
                     intent.putExtra("pkg", packageName)
                     // intent.setData(Uri.fromParts("package", packageName, null));
                     intent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails")
+                    intent
                 }
 
                 else -> {
                     // 2.3以降
                     // http://code.google.com/p/sdwatch/source/browse/src/com/beaglebros/SDWatch/NotificationClicked.java?spec=svna6588c0c18c69e8e8b87a561f659a04ab7f92baa&r=a6588c0c18c69e8e8b87a561f659a04ab7f92baa
-                    intent = Intent()
+                    val intent = Intent()
                     intent.setData(Uri.fromParts("package", packageName, null))
                     intent.setClassName("com.android.settings", "com.android.settings.applications.InstalledAppDetails")
+                    intent
                 }
             }
             if (intent != null) {

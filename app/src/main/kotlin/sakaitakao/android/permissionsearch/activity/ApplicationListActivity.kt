@@ -14,7 +14,6 @@ import sakaitakao.android.permissionsearch.R
 import sakaitakao.android.permissionsearch.adaptor.ApplicationListAdaptor
 import sakaitakao.android.permissionsearch.entity.ContextMenuItem
 import sakaitakao.android.permissionsearch.entity.PermissionInfoEx
-import sakaitakao.android.permissionsearch.util.ClosableLoan
 import sakaitakao.android.permissionsearch.util.PermissionInfoUtil
 import java.io.ByteArrayOutputStream
 import java.io.PrintWriter
@@ -141,9 +140,9 @@ class ApplicationListActivity : Activity() {
      */
     private fun createTextForSharing(packageManager: PackageManager, resources: Resources, permissionInfoEx: PermissionInfoEx): String {
 
-        return ClosableLoan.using(ByteArrayOutputStream(), { bos ->
+        return ByteArrayOutputStream().use { bos ->
 
-            ClosableLoan.using(PrintWriter(bos), { pw ->
+            PrintWriter(bos).use { pw ->
 
                 val permissionLabel = PermissionInfoUtil.getPermissionLabel(packageManager, resources, permissionInfoEx)
                 // タイトル
@@ -166,11 +165,11 @@ class ApplicationListActivity : Activity() {
                             it.packageName)
                     )
                 }
-            })
+            }
 
             Log.v("", bos.toString())
             bos.toString()
-        })
+        }
     }
 
     // -------------------------------------------------------------------------
