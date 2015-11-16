@@ -2,6 +2,7 @@ package sakaitakao.android.permissionsearch.activity
 
 import android.app.Activity
 import android.app.Dialog
+import android.app.DialogFragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -96,19 +97,6 @@ class AdvancedSearchActivity : Activity() {
         menuItemDeselectAll.setVisible((checkCount > 0))
         menuItemSaveCondition.setVisible((checkCount > 0))
         return super.onPrepareOptionsMenu(menu)
-    }
-
-    /*
-	 * (非 Javadoc)
-	 * 
-	 * @see android.app.Activity#onCreateDialog(int)
-	 */
-    override fun onCreateDialog(id: Int): Dialog? {
-        var dialog: Dialog? = null
-        if (id == DIALOG_ID_SAVE_CONDITION) {
-            dialog = createSaveConditionDialog()
-        }
-        return dialog
     }
 
     // -------------------------------------------------------------------------
@@ -227,7 +215,11 @@ class AdvancedSearchActivity : Activity() {
      * @return
      */
     private fun onOptionsItemSaveConditionSelected(): Boolean {
-        showDialog(DIALOG_ID_SAVE_CONDITION)
+
+        val fm = fragmentManager
+        val df = SaveAdvancedSearchConditionDialogFragment()
+        df.show(fm, SAVE_CONDITION_DIALOG_TAG)
+        //        showDialog(DIALOG_ID_SAVE_CONDITION)
         return true
     }
 
@@ -239,25 +231,6 @@ class AdvancedSearchActivity : Activity() {
      */
     private fun changeStateSearchButton(button: Button) {
         button.isEnabled = adaptor!!.checkedPermission.size > 0
-    }
-
-    /**
-     * 検索条件を保存するダイアログを生成する
-
-     * @return
-     */
-    private fun createSaveConditionDialog(): Dialog {
-
-        val dialog = SaveAdvancedSearchConditionDialog(this)
-        // OK ボタンが押された時の処理
-        dialog.setOkButtonOnClickListener(object : OnClickListener {
-            override fun onClick(view: View) {
-                onSaveCondition(dialog)
-            }
-        })
-        // キャンセルされた時の処理
-        dialog.setOnCancelListener({ onSaveConditionDialogCanceled() })
-        return dialog
     }
 
     /**
@@ -283,19 +256,20 @@ class AdvancedSearchActivity : Activity() {
         config.addAdvancedSearchCondition(easySearchInfo)
 
         // ダイアログを完全に消す。(dismiss では再利用されちゃう)
-        removeDialog(DIALOG_ID_SAVE_CONDITION)
+        closeSaveAdvancedSearchConditionDialog()
 
         // トーストでお知らせ
         Toast.makeText(this, resources.getString(R.string.advanced_search_cond_saved, name), Toast.LENGTH_LONG).show()
     }
 
-    /**
-     * 検索条件を保存するダイアログで back キーが押されたら
-     */
-    protected fun onSaveConditionDialogCanceled() {
-        // ダイアログを完全に消す。
-        removeDialog(DIALOG_ID_SAVE_CONDITION)
+    private fun closeSaveAdvancedSearchConditionDialog() {
+
+        val fm = fragmentManager
+        val fragment = fm.findFragmentByTag(SAVE_CONDITION_DIALOG_TAG) as DialogFragment
+        fragment.dismiss()
+        fm.beginTransaction().remove(fragment).commit()
     }
+
 
     // -------------------------------------------------------------------------
     // Classes
@@ -331,11 +305,27 @@ class AdvancedSearchActivity : Activity() {
         }
     }
 
+
+    private inner class SaveAdvancedSearchConditionDialogFragment : DialogFragment() {
+        override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
+            val dialog = SaveAdvancedSearchConditionDialog(activity)
+            // OK ボタンが押された時の処理
+            dialog.setOkButtonOnClickListener(object : OnClickListener {
+                override fun onClick(view: View) {
+                    onSaveCondition(dialog)
+                }
+            })
+            return dialog
+        }
+    }
+
     companion object {
 
         private val CONTEXT_MENU_ITEM_ID_SELECT_ALL = Menu.FIRST + 1
         private val CONTEXT_MENU_ITEM_ID_DESELECT_ALL = Menu.FIRST + 2
         private val CONTEXT_MENU_ITEM_ID_SAVE_CONDITION = Menu.FIRST + 3
-        private val DIALOG_ID_SAVE_CONDITION = 0
+
+        private val SAVE_CONDITION_DIALOG_TAG = "saveAdvancedSearchConditionDialog"
     }
 }
