@@ -6,8 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MenuItem.OnMenuItemClickListener
-import kotlinx.android.synthetic.easy_search.easy_search_include_system_apps
-import kotlinx.android.synthetic.easy_search.easy_search_list
+import kotlinx.android.synthetic.main.easy_search.*
 import sakaitakao.android.permissionsearch.R
 import sakaitakao.android.permissionsearch.adaptor.EasySearchListAdaptor
 import sakaitakao.android.permissionsearch.entity.ContextMenuItem

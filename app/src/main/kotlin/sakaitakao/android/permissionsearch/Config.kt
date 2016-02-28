@@ -94,7 +94,7 @@ class Config
 
         companion object {
             public fun fromKey(k: String): ApplicationInfo {
-                return ApplicationInfo.values.filter { it.key == k }[0]
+                return ApplicationInfo.values().filter { it.key == k }[0]
             }
         }
     }

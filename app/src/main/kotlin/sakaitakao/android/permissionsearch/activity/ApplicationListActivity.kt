@@ -9,7 +9,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MenuItem.OnMenuItemClickListener
-import kotlinx.android.synthetic.application_list.*
+import kotlinx.android.synthetic.main.application_list.*
 import sakaitakao.android.permissionsearch.R
 import sakaitakao.android.permissionsearch.adaptor.ApplicationListAdaptor
 import sakaitakao.android.permissionsearch.entity.ContextMenuItem

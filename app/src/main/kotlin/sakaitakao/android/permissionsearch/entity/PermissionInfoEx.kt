@@ -72,9 +72,7 @@ class PermissionInfoEx : Parcelable {
 
     companion object {
 
-        /**
-
-         */
+        @JvmField
         val CREATOR: Parcelable.Creator<PermissionInfoEx> = object : Parcelable.Creator<PermissionInfoEx> {
 
             /*

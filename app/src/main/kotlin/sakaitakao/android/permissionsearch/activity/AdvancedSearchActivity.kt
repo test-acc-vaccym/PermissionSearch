@@ -14,9 +14,7 @@ import android.widget.Button
 import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.Toast
-import kotlinx.android.synthetic.advanced_search.advanced_search_include_system_apps
-import kotlinx.android.synthetic.advanced_search.advanced_search_list
-import kotlinx.android.synthetic.advanced_search.advanced_search_search
+import kotlinx.android.synthetic.main.advanced_search.*
 import sakaitakao.android.permissionsearch.Config
 import sakaitakao.android.permissionsearch.R
 import sakaitakao.android.permissionsearch.activity.PermissionListActivity.SearchCondition
@@ -116,7 +114,7 @@ class AdvancedSearchActivity : Activity() {
 
     private fun showList(list: List<PermissionInfoEx>) {
 
-        adaptor = AdvancedSearchListAdaptor(this, R.layout.advanced_search_list_item, list.toArrayList())
+        adaptor = AdvancedSearchListAdaptor(this, R.layout.advanced_search_list_item, list.toMutableList())
         adaptor!!.setOnItemCheckedChangeListener(object : AdvancedSearchListAdaptor.Companion.OnItemCheckedChangeListener {
             override fun onItemCheckedChange() {
                 onListItemCheckedChange()

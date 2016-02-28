@@ -7,8 +7,7 @@ import android.content.res.Resources
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
-import kotlinx.android.synthetic.permission_list.permission_list_hit_count
-import kotlinx.android.synthetic.permission_list.permission_list_list
+import kotlinx.android.synthetic.main.permission_list.*
 import sakaitakao.android.permissionsearch.R
 import sakaitakao.android.permissionsearch.adaptor.PermissionListAdaptor
 import sakaitakao.android.permissionsearch.entity.PermissionInfoEx
@@ -57,7 +56,7 @@ class PermissionListActivity : Activity() {
 
         val ret = AppPermissionsFinder.SearchCondition()
         ret.includeSystemApps = cond.includeSystemApps
-        ret.permissionNamePatternList = cond.permissionNamePatternList.toArrayList()
+        ret.permissionNamePatternList = cond.permissionNamePatternList.toMutableList()
         ret.protectionLevelSet = HashSet(cond.protectionLevelList)
         return ret
     }
@@ -141,6 +140,7 @@ class PermissionListActivity : Activity() {
 
         companion object {
 
+            @JvmField
             val CREATOR: Parcelable.Creator<SearchCondition> = object : Parcelable.Creator<SearchCondition> {
                 override fun newArray(i: Int): Array<SearchCondition?> {
                     return arrayOfNulls(i)

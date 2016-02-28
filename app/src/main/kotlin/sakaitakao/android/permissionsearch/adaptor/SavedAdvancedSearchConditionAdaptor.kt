@@ -91,7 +91,7 @@ class SavedAdvancedSearchConditionAdaptor
         val textView = view.findViewById(R.id.saved_advanced_search_condition_item_detail) as TextView
         val sb = StringBuilder()
         easySearchInfo.permissionNamePatternList.forEach { name ->
-            if (sb.length() > 0) {
+            if (sb.length > 0) {
                 sb.append(", ")
             }
             sb.append(name)
