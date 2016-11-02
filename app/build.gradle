@@ -3,13 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
         applicationId "sakaitakao.android.permissionsearch"
         minSdkVersion 14
-        targetSdkVersion 23
+        targetSdkVersion 25
 
         testApplicationId "sakaitakao.android.permissionsearch.test"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
@@ -35,7 +35,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 buildscript {
-    ext.kotlin_version = '1.0.0'
+    ext.kotlin_version = '1.0.4'
     repositories {
         mavenCentral()
     }

@@ -28,10 +28,14 @@ object PermissionInfoUtil {
 
         val stringId: Int
         when (protectionLevel) {
-            PermissionInfo.PROTECTION_DANGEROUS -> stringId = R.string.protection_level_dangerous
-            PermissionInfo.PROTECTION_NORMAL -> stringId = R.string.protection_level_normal
-            PermissionInfo.PROTECTION_SIGNATURE -> stringId = R.string.protection_level_signature
-            PermissionInfo.PROTECTION_SIGNATURE_OR_SYSTEM -> stringId = R.string.protection_level_signature_or_system
+            PermissionInfo.PROTECTION_DANGEROUS ->
+                stringId = R.string.protection_level_dangerous
+            PermissionInfo.PROTECTION_NORMAL ->
+                stringId = R.string.protection_level_normal
+            PermissionInfo.PROTECTION_SIGNATURE ->
+                stringId = R.string.protection_level_signature
+            (PermissionInfo.PROTECTION_SIGNATURE or PermissionInfo.PROTECTION_FLAG_PRIVILEGED) ->
+                stringId = R.string.protection_level_signature_or_system
             else -> stringId = R.string.protection_level_unknown
         }
         return resources.getString(stringId)

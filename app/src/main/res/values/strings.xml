@@ -9,7 +9,7 @@
     <string name="protection_level_normal">Normal</string>
     <string name="protection_level_dangerous">Dangerous</string>
     <string name="protection_level_signature">Signature</string>
-    <string name="protection_level_signature_or_system">Signature or System</string>
+    <string name="protection_level_signature_or_system">Signature or privileged</string>
     <string name="unknown_permission">不明な権限(%1$s)</string>
     <string name="hit_applications">%1$d 個のアプリ</string>
     <string name="protection_level">プロテクションレベル: %1$s</string>

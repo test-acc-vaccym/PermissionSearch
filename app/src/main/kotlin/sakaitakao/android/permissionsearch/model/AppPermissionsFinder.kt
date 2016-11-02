@@ -53,7 +53,7 @@ class AppPermissionsFinder {
     private fun getPermissionNameToApplicationInfoListMap(packageManager: PackageManager, condition: SearchCondition): Map<String, List<ApplicationInfo>> {
 
         // インストールされているパッケージを列挙
-        val packageSearchFlag = PackageManager.GET_PERMISSIONS or PackageManager.GET_UNINSTALLED_PACKAGES
+        val packageSearchFlag = PackageManager.GET_PERMISSIONS or PackageManager.MATCH_UNINSTALLED_PACKAGES
         val packageInfoList = packageManager.getInstalledPackages(packageSearchFlag)
 
         val excludeSystemApps = !condition.includeSystemApps
